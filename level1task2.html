@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Changing Button</title>
+  <style>
+    /* Add some basic styling */
+    #colorButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<button id="colorButton" onclick="changeColor()">Click me!</button>
+
+<script>
+  function changeColor() {
+    // Get the button element
+    var button = document.getElementById('colorButton');
+
+    // Generate a random color
+    var randomColor = getRandomColor();
+
+    // Change the button's background color
+    button.style.backgroundColor = randomColor;
+  }
+
+  function getRandomColor() {
+    // Generate a random hex color code
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+
+  function displayGreeting() {
+    // Get the current time
+    var currentTime = new Date();
+    var currentHour = currentTime.getHours();
+
+    // Determine the appropriate greeting based on the time
+    var greeting;
+    if (currentHour < 12) {
+      greeting = 'Good morning!';
+    } else if (currentHour < 18) {
+      greeting = 'Good afternoon!';
+    } else {
+      greeting = 'Good evening!';
+    }
+
+    // Display the greeting in an alert box
+    alert(greeting);
+  }
+
+  // Call the function when the page loads
+  displayGreeting();
+</script>
+
+</body>
+</html>

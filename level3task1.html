@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery with Slideshow</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 20px;
+    }
+
+    .thumbnail {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    .enlarged-image {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .enlarged-image img {
+      max-width: 80%;
+      max-height: 80%;
+    }
+
+    /* Image Slideshow */
+    .slideshow-container {
+      max-width: 800px;
+      margin: auto;
+      position: relative;
+    }
+
+    .mySlides {
+      display: none;
+    }
+
+    .slideshow-img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Thumbnails for slideshow */
+    .slideshow-thumbnail {
+      width: 50px;
+      height: auto;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: opacity 0.3s;
+    }
+
+    .slideshow-thumbnail:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+<div class="gallery-container">
+  <!-- Thumbnail Images -->
+  <img class="thumbnail" src="images--main/4.jpg" onclick="showEnlargedImage('images--main/4.jpg')" alt="Thumbnail 1">
+  <img class="thumbnail" src="images--main/5.jpg" onclick="showEnlargedImage('images--main/5.jpg')" alt="Thumbnail 2">
+  <img class="thumbnail" src="images--main/6.jpg" onclick="showEnlargedImage('images--main/6.jpg')" alt="Thumbnail 3">
+  <!-- Add more thumbnails as needed -->
+</div>
+
+<!-- Enlarged Image Overlay -->
+<div class="enlarged-image" onclick="hideEnlargedImage()">
+  <img id="enlargedImg" alt="Enlarged Image">
+</div>
+
+<!-- Image Slideshow -->
+<div class="slideshow-container">
+  <div class="mySlides">
+    <img class="slideshow-img" src="images--main/1.jpg" alt="Slide 1">
+  </div>
+  <div class="mySlides">
+    <img class="slideshow-img" src="images--main/2.jpg" alt="Slide 2">
+  </div>
+  <div class="mySlides">
+    <img class="slideshow-img" src="images--main/3.jpg" alt="Slide 3">
+  </div>
+  <!-- Add more slides as needed -->
+
+  <!-- Thumbnails for slideshow -->
+  <div style="text-align:center">
+    <img class="slideshow-thumbnail" src="images--main/1.jpg" onclick="currentSlide(1)" alt="Thumbnail 1">
+    <img class="slideshow-thumbnail" src="images--main/1.jpg" onclick="currentSlide(2)" alt="Thumbnail 2">
+    <img class="slideshow-thumbnail" src="images--main/1.jpg" onclick="currentSlide(3)" alt="Thumbnail 3">
+    <!-- Add more thumbnails as needed -->
+  </div>
+</div>
+
+<script>
+  function showEnlargedImage(imageSrc) {
+    var enlargedImage = document.getElementById('enlargedImg');
+    enlargedImage.src = imageSrc;
+    document.querySelector('.enlarged-image').style.display = 'flex';
+  }
+
+  function hideEnlargedImage() {
+    document.querySelector('.enlarged-image').style.display = 'none';
+  }
+
+  // Image Slideshow Logic
+  var slideIndex = 0;
+  showSlides();
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n - 1);
+  }
+
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var thumbnails = document.getElementsByClassName("slideshow-thumbnail");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+      slideIndex = 1;
+    }
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 2000); // Change slide every 2 seconds
+  }
+</script>
+
+</body>
+</html>
